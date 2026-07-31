@@ -28,3 +28,18 @@ class Job(models.Model):
     deadline=models.DateField()
     def __str__(self):
         return self.title
+class Application(models.Model):
+    job=models.ForeignKey(Job,on_delete=models.CASCADE)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    applied_at=models.DateField(auto_now_add=True)
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+    ]
+    
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+    def __str__(self):
+        return f"{self.user} applied for a job {self.Job}"
+
