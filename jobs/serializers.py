@@ -10,3 +10,7 @@ class JobSerializer(serializers.ModelSerializer):
         model=Job
         fields=['id','title','company','description','location','salary_min','salary_max','job_type','is_active','deadline']
 
+class ApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Application
+        fields=['id','job','user','applied_at','status']
