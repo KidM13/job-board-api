@@ -1,3 +1,14 @@
 from django.shortcuts import render
 
 # Create your views here.
+from .models import Company, Job,Application
+from rest_framework import viewsets
+from .serializers import CompanySerializer, JobSerializer
+from .permission import IsJobCompanyOwner , IsRecruiterOwner
+from rest_framework.permissions import IsAuthenticated
+class CompanyViewset(viewsets.ModelViewSet):
+    queryset=Company.objects.all()
+    serializer_class=CompanySerializer
+    permission_classes=[IsAuthenticated,IsRecruiterOwner]
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
