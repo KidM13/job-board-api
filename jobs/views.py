@@ -11,4 +11,4 @@ class CompanyViewset(viewsets.ModelViewSet):
     serializer_class=CompanySerializer
     permission_classes=[IsAuthenticated,IsRecruiterOwner]
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(recruiter=self.request.recruiter)
