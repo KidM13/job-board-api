@@ -7,6 +7,7 @@ from .serializers import CompanySerializer, JobSerializer
 from .permission import IsJobCompanyOwner , IsRecruiterOwner
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.exceptions import PermissionDenied
 
 class CompanyViewset(viewsets.ModelViewSet):
     queryset=Company.objects.all()
@@ -18,7 +19,11 @@ class JobViewset(viewsets.ModelViewSet):
     queryset=Job.objects.select_related('company')
     serializer_class=JobSerializer
     permission_classes=[IsAuthenticatedOrReadOnly,IsJobCompanyOwner]
+    recruiter=Company.recruiter
     def perform_create(self, serializer):
-        serializer.save(company=self.request.user.company)
+        company = serializer.validated_data['company']
+        if company.recruiter != self.request.user:
+            raise PermissionDenied("You can only post jobs under your own company.")
+        serializer.save()
 
 
