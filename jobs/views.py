@@ -18,5 +18,7 @@ class JobViewset(viewsets.ModelViewSet):
     queryset=Job.objects.select_related('company')
     serializer_class=JobSerializer
     permission_classes=[IsAuthenticatedOrReadOnly,IsJobCompanyOwner]
+    def perform_create(self, serializer):
+        serializer.save(company=self.request.user.company)
 
 
