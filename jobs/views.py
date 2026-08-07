@@ -19,7 +19,6 @@ class JobViewset(viewsets.ModelViewSet):
     queryset=Job.objects.select_related('company')
     serializer_class=JobSerializer
     permission_classes=[IsAuthenticatedOrReadOnly,IsJobCompanyOwner]
-    recruiter=Company.recruiter
     def perform_create(self, serializer):
         company = serializer.validated_data['company']
         if company.recruiter != self.request.user:
