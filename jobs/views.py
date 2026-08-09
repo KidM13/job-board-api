@@ -34,6 +34,8 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         return Application.objects.select_related('user', 'job', 'job__company').filter(
             Q(user=user) | Q(job__company__recruiter=user)
         )
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 
