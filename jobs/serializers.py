@@ -16,3 +16,6 @@ class ApplicationSerializer(serializers.ModelSerializer):
         model=Application
         fields=['id','job','user','applied_at','status']
         read_only_fields=['user','status','applied_at']
+    def validate(self, data):
+        user = self.context['request'].user
+        job = data['job']
