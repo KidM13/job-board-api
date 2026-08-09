@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from .models import Company, Job,Application
 from rest_framework import viewsets
-from .serializers import CompanySerializer, JobSerializer
+from .serializers import CompanySerializer, JobSerializer, ApplicationSerializer
 from .permission import IsJobCompanyOwner , IsRecruiterOwner
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -24,5 +24,11 @@ class JobViewset(viewsets.ModelViewSet):
         if company.recruiter != self.request.user:
             raise PermissionDenied("You can only post jobs under your own company.")
         serializer.save()
+class ApplicationViewSet(viewsets.ModelViewSet):
+    serializer_class = ApplicationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
 
 
