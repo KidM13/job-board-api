@@ -8,6 +8,7 @@ from .permission import IsJobCompanyOwner , IsRecruiterOwner
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.exceptions import PermissionDenied
+from django.db.models import Q
 
 class CompanyViewset(viewsets.ModelViewSet):
     queryset=Company.objects.all()
@@ -30,5 +31,9 @@ class ApplicationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        self.queryset=Application.objects.select_related('user', 'job', 'job__company')
+        applications=Application.objects.filter(Q(user=self.request.user)|Q(job__company__recruiter=self.request.user))
+
+
 
 
