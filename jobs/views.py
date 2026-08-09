@@ -31,9 +31,9 @@ class ApplicationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        self.queryset=Application.objects.select_related('user', 'job', 'job__company')
-        applications=Application.objects.filter(Q(user=self.request.user)|Q(job__company__recruiter=self.request.user))
-
+        return Application.objects.select_related('user', 'job', 'job__company').filter(
+            Q(user=user) | Q(job__company__recruiter=user)
+        )
 
 
 
