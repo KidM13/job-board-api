@@ -19,3 +19,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
     def validate(self, data):
         user = self.context['request'].user
         job = data['job']
+        if Application.objects.filter(user=user, job=job).exists():
+            raise serializers.ValidationError("You have already applied to this job.")
+
+        return data
