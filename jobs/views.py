@@ -9,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.exceptions import PermissionDenied
 from django.db.models import Q
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 class CompanyViewset(viewsets.ModelViewSet):
     queryset=Company.objects.all()
@@ -36,6 +38,19 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         )
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+    @action(detail=True,methods=['PATCH'])
+    def update_status(self,request,pk=None):
+        application=self.get_object()
+        if application.company.recruiter!=request.user:
+            raise PermissionDenied('only the recruiter who owns this job can update its status')
+        new_status=request.data.get('status')
+        if new_status not in ['pending','accepted','rejected']:
+            return Response({'error':'Invalid status value '},status=400)
+        application.status=new_status
+        application.save()
+        return Response(ApplicationSerializer(application).data)
+        
+        
 
 
 
