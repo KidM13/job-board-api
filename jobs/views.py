@@ -41,7 +41,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     @action(detail=True,methods=['PATCH'])
     def update_status(self,request,pk=None):
         application=self.get_object()
-        if application.company.recruiter!=request.user:
+        if application.job.company.recruiter!=self.request.user:
             raise PermissionDenied('only the recruiter who owns this job can update its status')
         new_status=request.data.get('status')
         if new_status not in ['pending','accepted','rejected']:
