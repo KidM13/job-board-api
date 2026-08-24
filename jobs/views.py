@@ -26,6 +26,8 @@ class JobViewset(viewsets.ModelViewSet):
     permission_classes=[IsAuthenticatedOrReadOnly,IsJobCompanyOwner]
     filterset_fields=['location','job_type','is_active']
     filter_backends=[DjangoFilterBackend,SearchFilter,OrderingFilter]
+    search_fields=['title','description']
+    ordering_fields=['deadline','salary_min']
 
     def perform_create(self, serializer):
         company = serializer.validated_data['company']
