@@ -11,6 +11,7 @@ from rest_framework.exceptions import PermissionDenied
 from django.db.models import Q
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.filters import SearchFilter,OrderingFilter 
 
 class CompanyViewset(viewsets.ModelViewSet):
     queryset=Company.objects.all()
@@ -22,6 +23,8 @@ class JobViewset(viewsets.ModelViewSet):
     queryset=Job.objects.select_related('company')
     serializer_class=JobSerializer
     permission_classes=[IsAuthenticatedOrReadOnly,IsJobCompanyOwner]
+    filterset_fields=['location','job_type','is_active']
+    
     def perform_create(self, serializer):
         company = serializer.validated_data['company']
         if company.recruiter != self.request.user:
