@@ -20,5 +20,14 @@ class JobPermissionAPITest(TestCase):
         client=APIClient()
         token = RefreshToken.for_user(userB)
         client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
-        response=client.create(f'api/job-v2/{companyA.id}')
+        response = client.post('/api/job-v2/', {
+            'title': 'Should Fail',
+            'company': companyA.id,
+            'description': 'testing',
+            'location': 'Remote',
+            'salary_min': 1000,
+            'salary_max': 2000,
+            'job_type': 'remote',
+            'deadline': '2026-12-01'
+        })
         self.assertEqual(response.status_code,403)
