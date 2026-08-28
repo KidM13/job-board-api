@@ -17,4 +17,8 @@ class JobPermissionAPITest(TestCase):
             website='http://companyAwebsite.com',
             recruiter=userA,
         )
-        
+        client=APIClient()
+        token = RefreshToken.for_user(userB)
+        client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
+        response=client.create(f'api/job-v2/{companyA.id}')
+        self.assertEqual(response.status_code,403)
