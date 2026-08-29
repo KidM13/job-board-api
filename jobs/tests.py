@@ -50,3 +50,24 @@ class CompanyPermissionAPITest(TestCase):
 
 class ApplicationPermissionAPITest(TestCase):
     def test_non_owner_cannot_update_job_status(self):
+        userA = User.objects.create_user(username='test', password='test123')
+        userB = User.objects.create_user(username='kebede', password='kebede123')
+        companyA=Company.objects.create(
+                            name='userA company',
+                            description='there is nothing to say about ',
+                            website='http://companyAwebsite.com',
+                            recruiter=userA,
+                        )
+        jobA=Job.objects.create(
+            company=companyA,
+            title='fullstack developer',
+            description='a person who does both the backend and frontend things',
+            location= 'Remote',
+            salary_min=1000,
+            salary_max= 2000,
+            job_type= 'remote',
+            deadline= '2026-12-01',
+            is_active='True'
+
+
+        )
