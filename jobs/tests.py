@@ -68,6 +68,22 @@ class ApplicationPermissionAPITest(TestCase):
             job_type= 'remote',
             deadline= '2026-12-01',
             is_active='True'
-
-
         )
+        client=APIClient()
+        token = RefreshToken.for_user(userB)
+        client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
+        response=client.post('/api/job-v2/',{
+            'title': 'Should Fail',
+            'company': companyA.id,
+            'description': 'testing',
+            'location': 'Remote',
+            'salary_min': 1000,
+            'salary_max': 2000,
+            'job_type': 'remote',
+            'deadline': '2026-12-01',
+            'is_active':'false'
+
+        })
+        self.assertEqual(response.status_code,403)
+
+
