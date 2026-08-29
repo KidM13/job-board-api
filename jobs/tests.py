@@ -31,3 +31,19 @@ class JobPermissionAPITest(TestCase):
             'deadline': '2026-12-01'
         })
         self.assertEqual(response.status_code,403)
+
+class CompanyPermissionAPITest(TestCase):
+    def test_non_owner_cannot_delete_or_edit_company(self):
+        userA = User.objects.create_user(username='test', password='test123')
+        userB = User.objects.create_user(username='kebede', password='kebede123')
+        companyA=Company.objects.create(
+                    name='userA company',
+                    description='there is nothing to say about ',
+                    website='http://companyAwebsite.com',
+                    recruiter=userA,
+                )
+        client=APIClient()
+        token = RefreshToken.for_user(userB)
+        client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
+        response=client.delete(f'/api/company-v2/{companyA.id}')
+        self.assertEqual(response.status_code,403)
