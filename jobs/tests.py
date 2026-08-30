@@ -111,7 +111,7 @@ class DuplicateApplicationTest(TestCase):
         response =client.post('/api/application-v2/',{
             'job':jobA.id
         })
-        self.assertEqual(response.status_code,400)
+        self.assertEqual(response.status_code,400)#status code 400
 
 
 
