@@ -80,5 +80,8 @@ class ApplicationPermissionAPITest(TestCase):
           'status':'accepted'
         })
         self.assertEqual(response.status_code,403)
+class DuplicateApplicationTest(TestCase):
+    def test_prevent_duplicate_application(self):
+        
 
 
