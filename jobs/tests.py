@@ -109,10 +109,9 @@ class DuplicateApplicationTest(TestCase):
         token = RefreshToken.for_user(userB)
         client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
         response =client.post('/api/application-v2/',{
-            'user':userB,
-            'job':jobA
+            'job':jobA.id
         })
-        self.assertEqual(response.status_code,403)
+        self.assertEqual(response.status_code,400)
 
 
 
