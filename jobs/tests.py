@@ -69,6 +69,10 @@ class ApplicationPermissionAPITest(TestCase):
             deadline= '2026-12-01',
             is_active='True'
         )
+        applicationB=Application.objects.create(
+            user=userB,
+            job=jobA
+        )
         client=APIClient()
         token = RefreshToken.for_user(userB)
         client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
