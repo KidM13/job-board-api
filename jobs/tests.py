@@ -77,7 +77,7 @@ class ApplicationPermissionAPITest(TestCase):
         token = RefreshToken.for_user(userB)
         client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.access_token}')
         response=client.patch(f'/api/application-v2/{applicationB.id}/update_status/',{
-          'status':'Accepted'
+          'status':'accepted'
         })
         self.assertEqual(response.status_code,403)
 
