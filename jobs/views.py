@@ -45,8 +45,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
             Q(user=user) | Q(job__company__recruiter=user)
         )
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-        application=self.get_object()
+        application=serializer.save(user=self.request.user)
         notify_recruiter.delay(application.id)
 
     @action(detail=True,methods=['PATCH'])
