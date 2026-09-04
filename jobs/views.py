@@ -13,6 +13,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter,OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from .tasks import notify_recruiter
 
 class CompanyViewset(viewsets.ModelViewSet):
     queryset=Company.objects.all()
@@ -45,6 +46,9 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         )
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        application=self.get_object()
+        notify_recruiter.delay(application.id)
+
     @action(detail=True,methods=['PATCH'])
     def update_status(self,request,pk=None):
         application=self.get_object()
