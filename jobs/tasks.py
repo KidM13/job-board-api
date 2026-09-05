@@ -10,6 +10,6 @@ def notify_recruiter(application_id):
 def deactivate_expired_jobs():
     from django.utils import timezone
     from .models import Job
-    expired_jobs=Job.objects.filter(is_active=True,deadline__lt=timezone.now.date())
+    expired_jobs=Job.objects.filter(is_active=True,deadline__lt=timezone.now().date())
     expired_jobs.update(is_active=False)
  
