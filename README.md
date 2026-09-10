@@ -49,3 +49,11 @@ A REST API for a job board platform, built with Django and Django REST Framework
 
 Full request/response schemas are in the [Swagger docs](https://job-board-api-vbmk.onrender.com/api/docs/).
 
+## Authentication flow
+
+```
+POST /api/token/            → { "access": "...", "refresh": "..." }
+Authorization: Bearer <access_token>   → attach to every protected request
+POST /api/token/refresh/    → get a new access token once it expires
+```
+
