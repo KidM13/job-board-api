@@ -57,3 +57,32 @@ Authorization: Bearer <access_token>   → attach to every protected request
 POST /api/token/refresh/    → get a new access token once it expires
 ```
 
+## Getting started locally
+
+```bash
+git clone https://github.com/<your-username>/job-board-api.git
+cd job-board-api
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Create a `.env` file in the project root:
+
+```
+SECRET_KEY=your-secret-key-here
+DEBUG=True
+```
+
+Then:
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
+
+The API is now available at `http://127.0.0.1:8000/`.
+
+
+
