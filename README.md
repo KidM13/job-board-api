@@ -60,7 +60,7 @@ POST /api/token/refresh/    → get a new access token once it expires
 ## Getting started locally
 
 ```bash
-git clone https://github.com/<your-username>/job-board-api.git
+git clone https://github.com/KidM13/job-board-api.git
 cd job-board-api
 python3 -m venv venv
 source venv/bin/activate
@@ -83,6 +83,18 @@ python manage.py runserver
 ```
 
 The API is now available at `http://127.0.0.1:8000/`.
+
+### Running the background workers (optional, for local testing)
+
+Celery and Redis power the notification and scheduled-deactivation tasks. Redis must be installed and running locally first.
+
+```bash
+# terminal 2
+celery -A core worker --loglevel=info
+
+# terminal 3
+celery -A core beat --loglevel=info
+```
 
 
 
