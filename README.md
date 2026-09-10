@@ -95,6 +95,7 @@ celery -A core worker --loglevel=info
 # terminal 3
 celery -A core beat --loglevel=info
 ```
+![Celery worker picking up a task](screenshots/celery-worker.png)
 
 
 
