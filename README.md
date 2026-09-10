@@ -47,3 +47,5 @@ A REST API for a job board platform, built with Django and Django REST Framework
 | GET / POST | `/api/application-v2/` | List applications (scoped to the logged-in user's role) / apply to a job |
 | PATCH | `/api/application-v2/{id}/update_status/` | Recruiter-only: accept or reject an application |
 
+Full request/response schemas are in the [Swagger docs](https://job-board-api-vbmk.onrender.com/api/docs/).
+
