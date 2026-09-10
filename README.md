@@ -34,3 +34,16 @@ A REST API for a job board platform, built with Django and Django REST Framework
 | Deployment | Render, Gunicorn, WhiteNoise |
 | Testing | Django `TestCase`, DRF `APIClient` |
 
+## API overview
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/token/` | Log in, get access + refresh tokens |
+| POST | `/api/token/refresh/` | Exchange a refresh token for a new access token |
+| GET / POST | `/api/company-v2/` | List / create companies |
+| GET / PUT / DELETE | `/api/company-v2/{id}/` | Retrieve, update, or delete a company (owner only for writes) |
+| GET / POST | `/api/job-v2/` | List (public) / create (owner only) jobs — supports `?location=`, `?job_type=`, `?search=`, `?ordering=` |
+| GET / PUT / DELETE | `/api/job-v2/{id}/` | Retrieve, update, or delete a job |
+| GET / POST | `/api/application-v2/` | List applications (scoped to the logged-in user's role) / apply to a job |
+| PATCH | `/api/application-v2/{id}/update_status/` | Recruiter-only: accept or reject an application |
+
