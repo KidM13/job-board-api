@@ -102,6 +102,15 @@ celery -A core beat --loglevel=info
 ```bash
 python manage.py test jobs
 ```
+## Project structure
+
+```
+job_board_api/
+├── core/           # project settings, URLs, Celery config
+├── jobs/           # models, serializers, views, permissions, tasks, tests
+├── requirements.txt
+└── manage.py
+```
 
 
 
