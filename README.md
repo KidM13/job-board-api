@@ -7,3 +7,4 @@ A REST API for a job board platform, built with Django and Django REST Framework
 **Alternative docs (ReDoc):** https://job-board-api-vbmk.onrender.com/api/redoc/
 
 > Note: hosted on Render's free tier — the first request after inactivity may take 30–50 seconds while the instance wakes up.
+![Swagger UI overview](screenshots/swagger-overview.png)
