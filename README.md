@@ -21,3 +21,16 @@ A REST API for a job board platform, built with Django and Django REST Framework
 - **Automated test suite** covering the ownership and permission rules, using DRF's `APIClient`
 - **CORS** configured for frontend integration
 
+## Tech stack
+
+| Layer | Tools |
+|---|---|
+| API | Django, Django REST Framework |
+| Auth | JWT (`djangorestframework-simplejwt`) |
+| Database | PostgreSQL (production), SQLite (local dev) |
+| Background jobs | Celery, Redis, Celery Beat |
+| Docs | drf-spectacular (Swagger / ReDoc) |
+| Filtering | django-filter |
+| Deployment | Render, Gunicorn, WhiteNoise |
+| Testing | Django `TestCase`, DRF `APIClient` |
+
