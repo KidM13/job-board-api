@@ -97,5 +97,11 @@ celery -A core beat --loglevel=info
 ```
 ![Celery worker picking up a task](screenshots/celery-worker.png)
 
+## Running the tests
+
+```bash
+python manage.py test jobs
+```
+
 
 
